@@ -5,6 +5,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        title: Text(
+          "Dashboard",
+          style: TextStyle(
+            fontSize: 15,
+            color: Theme.of(context).colorScheme.primary,
+            fontWeight: FontWeight.w500,
+          )
+        ),
+      ),
+    );
   }
 }
