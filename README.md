@@ -1,16 +1,54 @@
-# mars_weather_dashboard
+# Mars Weather Dashboard
 
-A new Flutter project.
+A planned **Flutter mobile dashboard** for visualising Mars weather data fetched from a custom Python backend API.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 📌 About the Project
 
-A few resources to get you started if this is your first Flutter project:
+Mars Weather Dashboard is a **simple Flutter-based mobile application** designed to display Mars weather data in a clean, readable interface.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+The app is planned to consume data from a dedicated backend service, handling all data retrieval and processing externally so the frontend can remain lightweight and focused on UI and user experience.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+---
+
+## 🧠 Project Architecture
+
+This project is part of a **two-repository system**:
+
+- **Backend API**  
+  [python-mars-weather](https://github.com/dimitrilahanas/python-mars-weather)  
+  A FastAPI service that fetches, processes, and exposes Mars weather data from NASA’s InSight API.
+
+- **Frontend Dashboard (this repository)**  
+  A Flutter mobile app that consumes the backend API and displays the data visually.
+
+---
+
+## 🎯 Planned Features
+
+- Display the latest available Martian Sol
+- View weather data for a selected Sol:
+  - Average temperature
+  - Martian season
+  - Wind direction
+  - Wind speed
+- Simple, mobile-friendly UI
+- API-driven architecture (no direct NASA API calls from the app)
+
+---
+
+## 🛠 Tech Stack
+
+- **Flutter** – cross-platform mobile framework
+- **Dart** – application logic
+- **REST API** – data consumption from backend service
+
+---
+
+## 🚧 Project Status
+
+This project is currently in the **early development / planning stage**.  
+Initial focus is on API integration and basic UI structure before expanding features and design.
+
+---
