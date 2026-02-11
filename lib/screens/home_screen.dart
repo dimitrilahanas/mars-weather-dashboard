@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mars_weather_dashboard/widgets/weather_grid.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,6 +19,8 @@ class HomeScreen extends StatelessWidget {
           )
         ),
       ),
+
+      body: WeatherGrid(),
     );
   }
 }
