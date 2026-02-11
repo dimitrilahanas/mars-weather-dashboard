@@ -25,7 +25,7 @@ class DefaultTheme {
       error: Color(0xFF2DD4BF),
       onError: Colors.yellow,
       surface: Color(0xFF1f1f1f),
-      onSurface: Colors.black,
+      onSurface: Color.fromARGB(255, 14, 14, 14),
     ),
   );
 }
