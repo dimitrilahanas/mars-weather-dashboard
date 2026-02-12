@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mars_weather_dashboard/widgets/sol_header.dart';
+import 'package:mars_weather_dashboard/widgets/sol_selector.dart';
 import 'package:mars_weather_dashboard/widgets/weather_grid.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -26,12 +27,17 @@ class HomeScreen extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: const EdgeInsets.only(top: 0, bottom: 40, left: 0),
+              padding: const EdgeInsets.only(top: 0, bottom: 50, left: 0),
               child: SolHeader(),
             ),
           ),
 
           Expanded(child: WeatherGrid()),
+
+          Padding(
+            padding: const EdgeInsets.only(bottom: 100),
+            child: SolSelector(),
+          ),
         ],
       ),
     );
