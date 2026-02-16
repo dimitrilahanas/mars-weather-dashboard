@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mars_weather_dashboard/models/data_model.dart';
 
 class DataWidget extends StatelessWidget {
-  const DataWidget({super.key});
+  final DataModel dataModel;
+  final String? unit;
+  const DataWidget({super.key, required this.dataModel, this.unit});
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +24,11 @@ class DataWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text("Temperature", style: styleTemplate.copyWith(fontSize: 18)),
+            Text(dataModel.label, style: styleTemplate.copyWith(fontSize: 18)),
 
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
-              child: Text("10°C", style: styleTemplate.copyWith(fontSize: 33)),
+              child: Text("${dataModel.data} + ${unit ?? ''}", style: styleTemplate.copyWith(fontSize: 33)),
             ),
           ],
         ),
