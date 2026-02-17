@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:mars_weather_dashboard/models/sol_model.dart';
 import 'package:mars_weather_dashboard/widgets/data_widget.dart';
 
 class WeatherGrid extends StatelessWidget {
-  const WeatherGrid({super.key});
+  final SolModel selectedSol;
+  const WeatherGrid({super.key, required this.selectedSol});
 
   @override
   Widget build(BuildContext context) {
@@ -14,10 +16,10 @@ class WeatherGrid extends StatelessWidget {
         crossAxisCount: 2,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          DataWidget(dataModel: null, unit: "°C",),
-          DataWidget(dataModel: null, unit: null),
-          DataWidget(dataModel: null, unit: null),
-          DataWidget(dataModel: null, unit: "m/s"),
+          DataWidget(dataModel: selectedSol.temperature, unit: "°C",),
+          DataWidget(dataModel: selectedSol.season, unit: null),
+          DataWidget(dataModel: selectedSol.windDirection, unit: null),
+          DataWidget(dataModel: selectedSol.windSpeed, unit: "m/s"),
         ],
       ),
     );
