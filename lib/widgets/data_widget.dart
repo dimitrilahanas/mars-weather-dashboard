@@ -24,11 +24,11 @@ class DataWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(dataModel.label, style: styleTemplate.copyWith(fontSize: 18)),
+            Text(dataModel.label, style: styleTemplate.copyWith(fontSize: 18, fontWeight: FontWeight.bold)),
 
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
-              child: Text("${dataModel.data} + ${unit ?? ''}", style: styleTemplate.copyWith(fontSize: 33)),
+              child: Text("${dataModel.data} ${unit ?? ''}", style: styleTemplate.copyWith(fontSize: 18)),
             ),
           ],
         ),
