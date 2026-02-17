@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mars_weather_dashboard/services/http_services.dart';
 
 class SolSelector extends StatelessWidget {
-  const SolSelector({super.key});
+  final httpServices = new HttpServices();
+  SolSelector({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,8 +16,10 @@ class SolSelector extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(left: 15),
+            child: Text(
               "Available Sols:",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
@@ -23,17 +27,27 @@ class SolSelector extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            Expanded(
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Text("hi", style: TextStyle(color: Colors.black)),
-                  Text("hi", style: TextStyle(color: Colors.black)),
-                ],
-              ),
-            )
-          ],
-        ),
+          ),
+          Expanded(
+            child: FutureBuilder(
+              future: httpServices.getSols(),
+              builder: (context, snapshot) {
+                final sols = snapshot.data!;
+                return ListView.builder(
+                  itemCount: sols.length,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: Chip(label: Text(sols[index])),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
