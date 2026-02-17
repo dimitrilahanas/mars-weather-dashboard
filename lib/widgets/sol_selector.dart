@@ -16,6 +16,13 @@ class _SolSelectorState extends State<SolSelector> {
   void initState() {
     super.initState();
     _solsFuture = HttpServices().getSols();
+    _solsFuture.then((sols) {
+      if (sols.isNotEmpty) {
+        setState(() {
+          _selectedSol = sols.last;
+        });
+      }
+    });
   }
 
   @override
@@ -62,13 +69,18 @@ class _SolSelectorState extends State<SolSelector> {
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: ChoiceChip(
                         checkmarkColor: Theme.of(context).colorScheme.primary,
-                        label: Text(sol, style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+                        label: Text(
+                          sol,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
                         selected: _selectedSol == sol,
                         onSelected: (selected) {
                           setState(() {
                             _selectedSol = selected ? sol : null;
                           });
-                          // Here you can fetch sol data and update UI
+                          // fetch sol data and update UI
                         },
                       ),
                     );
