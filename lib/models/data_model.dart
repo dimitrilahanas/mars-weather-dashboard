@@ -13,4 +13,8 @@ class DataModel {
       data: json['data'],
     );
   }
+
+  factory DataModel.zero() {
+    return const DataModel(label: '', data: '');
+  }
 }
