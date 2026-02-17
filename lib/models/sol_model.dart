@@ -1,9 +1,11 @@
+import 'package:mars_weather_dashboard/models/data_model.dart';
+
 class SolModel {
   final String sol;
-  final String temperature;
-  final String season;
-  final String windDirection;
-  final String windSpeed;
+  final DataModel temperature;
+  final DataModel season;
+  final DataModel windDirection;
+  final DataModel windSpeed;
 
   const SolModel({
     required this.sol,
