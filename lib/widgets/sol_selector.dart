@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:mars_weather_dashboard/services/http_services.dart';
 
-class SolSelector extends StatelessWidget {
-  final httpServices = new HttpServices();
-  SolSelector({super.key});
+class SolSelector extends StatefulWidget {
+  const SolSelector({super.key});
+
+  @override
+  State<SolSelector> createState() => _SolSelectorState();
+}
+
+class _SolSelectorState extends State<SolSelector> {
+  late Future<List<String>> _solsFuture;
+  String? _selectedSol;
+
+  @override
+  void initState() {
+    super.initState();
+    _solsFuture = HttpServices().getSols();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,10 +28,9 @@ class SolSelector extends StatelessWidget {
         borderRadius: BorderRadius.circular(17),
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 15),
+            padding: const EdgeInsets.symmetric(horizontal: 12),
             child: Text(
               "Available Sols:",
               style: TextStyle(
@@ -29,17 +41,35 @@ class SolSelector extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: FutureBuilder(
-              future: httpServices.getSols(),
+            child: FutureBuilder<List<String>>(
+              future: _solsFuture,
               builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                if (snapshot.hasError || !snapshot.hasData) {
+                  return const Center(child: Text("Error loading sols"));
+                }
+
                 final sols = snapshot.data!;
+
                 return ListView.builder(
-                  itemCount: sols.length,
                   scrollDirection: Axis.horizontal,
+                  itemCount: sols.length,
                   itemBuilder: (context, index) {
+                    final sol = sols[index];
                     return Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: Chip(label: Text(sols[index])),
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: ChoiceChip(
+                        label: Text(sol, style: TextStyle(color: Theme.of(context).colorScheme.primary)),
+                        selected: _selectedSol == sol,
+                        onSelected: (selected) {
+                          setState(() {
+                            _selectedSol = selected ? sol : null;
+                          });
+                          // Here you can fetch sol data and update UI
+                        },
+                      ),
                     );
                   },
                 );
