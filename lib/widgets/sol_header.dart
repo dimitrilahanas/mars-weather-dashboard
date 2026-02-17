@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:mars_weather_dashboard/models/sol_model.dart';
 
 class SolHeader extends StatelessWidget {
-  const SolHeader({super.key});
+  final SolModel? selectedSol;
+  const SolHeader({super.key, this.selectedSol});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +19,12 @@ class SolHeader extends StatelessWidget {
             ),
           ),
           Text(
-            "Sol 112",
+            "Sol ${selectedSol?.solNumber ?? '-'}",
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
+              fontSize: 18,
             ),
-          )
+          ),
         ],
       ),
     );
