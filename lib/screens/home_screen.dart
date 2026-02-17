@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
           Expanded(child: WeatherGrid()),
 
           Padding(
-            padding: const EdgeInsets.only(bottom: 100),
+            padding: const EdgeInsets.only(bottom: 50),
             child: SolSelector(),
           ),
         ],
