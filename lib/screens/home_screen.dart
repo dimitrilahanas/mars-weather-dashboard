@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:mars_weather_dashboard/models/sol_model.dart';
 import 'package:mars_weather_dashboard/widgets/sol_header.dart';
 import 'package:mars_weather_dashboard/widgets/sol_selector.dart';
 import 'package:mars_weather_dashboard/widgets/weather_grid.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  SolModel? _selectedSol;
 
   @override
   Widget build(BuildContext context) {
@@ -21,22 +29,29 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
       ),
-
       body: Column(
         children: [
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: const EdgeInsets.only(top: 0, bottom: 50, left: 0),
-              child: SolHeader(),
+              padding: const EdgeInsets.only(bottom: 50),
+              child: SolHeader(selectedSol: _selectedSol,),
             ),
           ),
 
-          Expanded(child: WeatherGrid()),
+          Expanded(
+            child: WeatherGrid(selectedSol: _selectedSol),
+          ),
 
           Padding(
             padding: const EdgeInsets.only(bottom: 50),
-            child: SolSelector(),
+            child: SolSelector(
+              onSolSelected: (sol) {
+                setState(() {
+                  _selectedSol = sol;
+                });
+              },
+            ),
           ),
         ],
       ),
