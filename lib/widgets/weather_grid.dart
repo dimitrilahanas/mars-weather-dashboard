@@ -14,10 +14,10 @@ class WeatherGrid extends StatelessWidget {
         crossAxisCount: 2,
         physics: NeverScrollableScrollPhysics(),
         children: [
-          DataWidget(dataModel: null),
-          DataWidget(dataModel: null),
-          DataWidget(dataModel: null),
-          DataWidget(dataModel: null),
+          DataWidget(dataModel: null, unit: "°C",),
+          DataWidget(dataModel: null, unit: null),
+          DataWidget(dataModel: null, unit: null),
+          DataWidget(dataModel: null, unit: "m/s"),
         ],
       ),
     );
