@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:mars_weather_dashboard/models/sol_model.dart';
 import 'package:mars_weather_dashboard/services/http_services.dart';
 
 class SolSelector extends StatefulWidget {
-  const SolSelector({super.key});
+  final ValueChanged<SolModel?> onSolSelected;
+  const SolSelector({super.key, required this.onSolSelected});
 
   @override
   State<SolSelector> createState() => _SolSelectorState();
 }
 
 class _SolSelectorState extends State<SolSelector> {
-  late Future<List<String>> _solsFuture;
-  String? _selectedSol;
+  late Future<List<int>> _solNumbersFuture;
+  int? _selectedSolNumber;
+  final HttpServices _http = HttpServices();
 
   @override
   void initState() {
     super.initState();
-    _solsFuture = HttpServices().getSols();
-    _solsFuture.then((sols) {
-      if (sols.isNotEmpty) {
-        setState(() {
-          _selectedSol = sols.last;
-        });
-      }
-    });
+    _solNumbersFuture = _http.getAvailableSols();
   }
 
   @override
@@ -48,8 +44,8 @@ class _SolSelectorState extends State<SolSelector> {
             ),
           ),
           Expanded(
-            child: FutureBuilder<List<String>>(
-              future: _solsFuture,
+            child: FutureBuilder<List<int>>(
+              future: _solNumbersFuture,
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
@@ -58,29 +54,34 @@ class _SolSelectorState extends State<SolSelector> {
                   return const Center(child: Text("Error loading sols"));
                 }
 
-                final sols = snapshot.data!;
+                final solNumbers = snapshot.data!;
 
                 return ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: sols.length,
+                  itemCount: solNumbers.length,
                   itemBuilder: (context, index) {
-                    final sol = sols[index];
+                    final solNumber = solNumbers[index];
+
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: ChoiceChip(
                         checkmarkColor: Theme.of(context).colorScheme.primary,
                         label: Text(
-                          sol,
+                          "Sol $solNumber",
                           style: TextStyle(
                             color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
-                        selected: _selectedSol == sol,
-                        onSelected: (selected) {
+                        selected: _selectedSolNumber == solNumber,
+                        onSelected: (selected) async {
+                          if (!selected) return;
+
                           setState(() {
-                            _selectedSol = selected ? sol : null;
+                            _selectedSolNumber = solNumber;
                           });
-                          // fetch sol data and update UI
+
+                          final sol = await _http.getSol(solNumber);
+                          widget.onSolSelected(sol);
                         },
                       ),
                     );
