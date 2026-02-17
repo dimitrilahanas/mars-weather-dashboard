@@ -61,6 +61,7 @@ class _SolSelectorState extends State<SolSelector> {
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: ChoiceChip(
+                        checkmarkColor: Theme.of(context).colorScheme.primary,
                         label: Text(sol, style: TextStyle(color: Theme.of(context).colorScheme.primary)),
                         selected: _selectedSol == sol,
                         onSelected: (selected) {
